@@ -1,2 +1,2 @@
 # roon-kit
-Collection of utility classes that simplify building extensions for Roon.
+Collection of utility classes that simplify building extensions for [Roon](https://roonlabs.com/).
