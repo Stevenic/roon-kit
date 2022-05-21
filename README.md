@@ -115,12 +115,3 @@ $ cd roon-kit
 $ npm install
 $ npm run build
 ```
-
-Next move to the sample directory and start the sample:
-
-```bash
-$ cd samples/search
-$ npm start
-```
-
-Enable the extension from within the extensions list in your Roon client and then follow the onscreen instructions.
