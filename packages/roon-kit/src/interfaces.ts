@@ -251,7 +251,9 @@ export type RoonApiTransportZonesSubscriptionCallback = (response: RoonSubscript
 
 export interface RoonApiTransportZones {
     zones?: Zone[];
+    zones_added?: Zone[];
     zones_changed?: Zone[];
+    zones_removed?: Zone[];
     zones_seek_changed?: Pick<Zone, 'zone_id' | 'queue_time_remaining' | 'seek_position'>[];
 }
 

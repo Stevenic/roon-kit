@@ -18,30 +18,33 @@ const extension = new RoonExtension({
 });
 
 extension.on("subscribe_zones", (core, response, body) => {
-    switch (response) {
-        case 'Subscribed':
-            const zone = body.zones![0];
-            console.log(`Zone['${zone.zone_id}'] subscribed to "${zone.display_name}"`);
-            console.log(`Zone['${zone.zone_id}'] "${zone.now_playing?.one_line.line1 ?? 'zone'}" is ${zone.state}`);
-            break;
-        case 'Changed':
-            // NOTE: Important to check for zone changes first as you often get both zone & seek changes.
-            if (body.zones_changed) {
-                const zone = body.zones_changed[0];
-                console.log(`Zone['${zone.zone_id}'] "${zone.now_playing?.one_line.line1 ?? 'zone'}" is ${zone.state}`);
-            } else if (body.zones_seek_changed) {
-                const zone = body.zones_seek_changed[0];
-                console.log(`Zone['${zone.zone_id}'] time remaining: ${zone.queue_time_remaining} seconds`);
-            } else {
-                console.log(`${response}: ${JSON.stringify(body)}`);
-            }
-            break;
-        default:
-            console.log(`${response}: ${JSON.stringify(body)}`);
-            break;
-    }
+    // Print new subscriptions
+    const addedZones = body.zones ?? body.zones_added ?? [];
+    addedZones.forEach(zone => {
+        console.log(`Zone['${zone.zone_id}'] subscribed to "${zone.display_name}"`);
+        console.log(`Zone['${zone.zone_id}'] "${zone.now_playing?.one_line.line1 ?? 'zone'}" is ${zone.state}`);
+    });
+
+    // Print removed subscriptions
+    const removedZones = body.zones_removed ?? [];
+    removedZones.forEach(zone => {
+        console.log(`Zone['${zone.zone_id}'] unsubscribed from "${zone.display_name}"`);
+    }); 
+
+    // Print zone state changes
+    const changedZones = body.zones_changed ?? [];
+    changedZones.forEach(zone => {
+        console.log(`Zone['${zone.zone_id}'] "${zone.now_playing?.one_line.line1 ?? 'zone'}" is ${zone.state}`);
+    });
+
+    // Print zone seeks
+    const seekedZones = body.zones_seek_changed ?? [];
+    seekedZones.forEach(zone => {
+        console.log(`Zone['${zone.zone_id}'] time remaining: ${zone.queue_time_remaining} seconds`);
+    });
 });
 
+console.log(`Starting discovery. Enable extension if needed.`);
 extension.start_discovery();
 extension.set_status(`extension starting`);
 
