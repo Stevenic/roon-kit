@@ -1,0 +1,14 @@
+{
+    "entryPointStrategy": "packages",
+    "entryPoints": [
+        "packages/roon-kit"
+    ],
+    "excludeExternals": true,
+    "excludePrivate": true,
+    "excludeInternal": true,
+    "out": "docs",
+    "name": "Roon Kit",
+    "includeVersion": true,
+    "githubPages": true,
+    "listInvalidSymbolLinks": true
+}
