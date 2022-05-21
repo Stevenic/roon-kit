@@ -93,12 +93,7 @@ export interface Item {
     }
 }
 
-export enum ItemHint {
-    action = 'action',
-    action_list = 'action_list',
-    list = 'list',
-    header = 'header'
-}
+export type ItemHint = 'action' | 'action_list' | 'list' | 'header';
 
 export interface List {
     title: string;
@@ -110,9 +105,7 @@ export interface List {
     hint?: ListHint | null;
 }
 
-export enum ListHint {
-    action_list = 'action_list'
-}
+export type ListHint = 'action_list';
 
 export interface RoonApiBrowseLoadOptions {
     set_display_offset?: number;
@@ -271,7 +264,7 @@ export interface RoonApiTransportQueue {
 export interface RoonApiTransport {
     change_settings(zone: Zone | Output, settings: RoonApiTransportSettings): Promise<void>;
     change_volume(output: Output, how: RoonChangeVolumeHow, value: number): Promise<void>;
-    control(zone: Zone | Output, control: any): Promise<void>;
+    control(zone: Zone | Output, control: RoonApiTransportControl): Promise<void>;
     convenience_switch(output: Output, opts: RoonApiTransportConvenienceSwitchOptions | EmptyObject): Promise<void>;
     get_outputs(): Promise<RoonApiTransportOutputs>;
     get_zones(): Promise<RoonApiTransportZones>;

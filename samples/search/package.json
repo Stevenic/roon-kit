@@ -1,0 +1,31 @@
+{
+  "name": "roon-kit-search",
+  "version": "0.1.0",
+  "description": "RoonKit: Search Sample",
+  "main": "bin/app.js",
+  "scripts": {
+    "build": "tsc -p ./tsconfig.json",
+    "start": "npm run build && node ./bin/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stevenic/roon-kit.git"
+  },
+  "keywords": [
+    "roon"
+  ],
+  "author": "stevenic",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Stevenic/roon-kit/issues"
+  },
+  "homepage": "https://github.com/Stevenic/roon-kit#readme",
+  "dependencies": {
+    "roon-kit": "~0.1.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/uuid": "8.3.4"
+  }
+}
