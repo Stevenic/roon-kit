@@ -169,10 +169,7 @@ export interface ZoneSettings {
 
 export type ZoneLoopSettings = 'loop' | 'loop_one' | 'disabled';
 
-export interface ZoneNowPlaying {
-    seek_position?: number;
-    length?: number;
-    image_key?: string;
+export interface RoonThreeLine {
     one_line: {
         line1: string;
     },
@@ -185,6 +182,11 @@ export interface ZoneNowPlaying {
         line2?: string;
         line3?: string;
     }
+}
+
+export interface ZoneNowPlaying extends RoonThreeLine {
+    seek_position?: number;
+    length?: number;
 }
 
 export interface Output {
@@ -244,7 +246,8 @@ export interface RoonApiTransportStandbyOptions {
 export type RoonApiTransportOutputSubscriptionCallback = (response: RoonSubscriptionResponse, body: RoonApiTransportOutputs) => void;
 
 export interface RoonApiTransportOutputs {
-    outputs: Output[];
+    outputs?: Output[];
+    changed_outputs?: Output[];
 }
 
 export type RoonApiTransportZonesSubscriptionCallback = (response: RoonSubscriptionResponse, body: RoonApiTransportZones) => void;
@@ -259,9 +262,30 @@ export interface RoonApiTransportZones {
 
 export type RoonApiTransportQueueSubscriptionCallback = (response: RoonSubscriptionResponse, body: RoonApiTransportQueue) => void;
 
-export interface RoonApiTransportQueue {
-    items: Item[];
+export interface QueueItem extends RoonThreeLine{
+    queue_item_id: number;
+    length: number;
+    image_key: string;
 }
+
+export interface RoonApiTransportQueue {
+    items?: QueueItem[];
+    changes?: QueueChange[];
+}
+
+export interface RemoveQueueChange {
+    operation: "remove";
+    index: number;
+    count: number;
+}
+
+export interface InsertQueueChange {
+    operation: "insert";
+    index: number;
+    items: QueueItem[];
+}
+
+export type QueueChange = RemoveQueueChange | InsertQueueChange;
 
 export interface RoonApiTransport {
     change_settings(zone: Zone | Output, settings: RoonApiTransportSettings): Promise<void>;
