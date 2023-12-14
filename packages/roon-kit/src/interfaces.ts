@@ -274,8 +274,10 @@ export interface RoonApiTransportQueue {
     changes?: QueueChange[];
 }
 
+export type QueueChangeOperation = 'insert' | 'remove';
+
 export interface QueueChange {
-    operation: string;
+    operation: QueueChangeOperation;
 }
 
 export interface RemoveQueueChange extends QueueChange {
