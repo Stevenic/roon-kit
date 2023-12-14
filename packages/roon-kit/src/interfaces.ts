@@ -187,6 +187,7 @@ export interface RoonThreeLine {
 export interface ZoneNowPlaying extends RoonThreeLine {
     seek_position?: number;
     length?: number;
+    image_key?: string;
 }
 
 export interface Output {
@@ -273,19 +274,21 @@ export interface RoonApiTransportQueue {
     changes?: QueueChange[];
 }
 
-export interface RemoveQueueChange {
-    operation: "remove";
+export interface QueueChange {
+    operation: string;
+}
+
+export interface RemoveQueueChange extends QueueChange {
+    operation: 'remove';
     index: number;
     count: number;
 }
 
-export interface InsertQueueChange {
-    operation: "insert";
+export interface InsertQueueChange extends QueueChange {
+    operation: 'insert';
     index: number;
     items: QueueItem[];
 }
-
-export type QueueChange = RemoveQueueChange | InsertQueueChange;
 
 export interface RoonApiTransport {
     change_settings(zone: Zone | Output, settings: RoonApiTransportSettings): Promise<void>;
